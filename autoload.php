@@ -109,8 +109,12 @@ if (class_exists('PHP_CodeSniffer\Autoload', false) === false) {
                 } else {
                     $path = __DIR__.$ds.'src'.$ds.substr(str_replace('\\', $ds, $class), 16).'.php';
                 }
-            }
+	    }
 
+	    if (substr($class,0,8) === 'PHPStan\\' ) {
+                    $path = __DIR__.$ds.'src'.$ds.str_replace('\\', $ds, $class).'.php';
+
+	    }
             // See if the composer autoloader knows where the class is.
             if ($path === false && self::$composerAutoloader !== false) {
                 $path = self::$composerAutoloader->findFile($class);
